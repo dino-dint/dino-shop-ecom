@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DinoShop</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../style.css">
+    <style>
+         html {scroll-behavior: smooth;}
+
+        .scroll-anchor { scroll-margin-top: 72px;}
+
+        /* category overview */
+        .category-card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+        }
+
+        .category-card .cat-img-wrap {
+            overflow: hidden;
+        }
+
+        .category-card .cat-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+            display: block;
+        }
+
+        .category-card:hover .cat-img {
+            transform: scale(1.06);
+        }
+
+        .cat-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 3px 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Background color */
+        .section-light { background-color: #f5f9f2;}
+        .section-white { background: #ffffff;}
+
+        /* Feature Card */
+        .feature-card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+        }
+
+        .feature-card .feature-img-wrap {
+            overflow: hidden;
+        }
+
+        .feature-card .feature-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+            display: block;
+        }
+
+        .feature-card:hover .feature-img {
+            transform: scale(1.06);
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            margin-right: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 3px 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-badge:hover {
+            background: #b8b6b6;
+            color: #000;
+        }
+
+        /* ── Footer ── */
+        .site-footer { background: #111; color: #aaa; padding: 56px 0 0; }
+        .site-footer .footer-brand { font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
+        .site-footer .footer-tagline { color: #666; font-size: .88rem; margin-top: 8px; max-width: 240px; line-height: 1.6; }
+        .site-footer .footer-heading { color: #7ec850; font-weight: 800; font-size: .95rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+        .site-footer ul { list-style: none; padding: 0; margin: 0; }
+        .site-footer ul li { margin-bottom: 8px; }
+        .site-footer ul li a { color: #999; text-decoration: none; font-size: .88rem; transition: color .2s; }
+        .site-footer ul li a:hover { color: #7ec850; }
+        .footer-social a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: #222; color: #aaa; text-decoration: none; margin-right: 7px;
+            transition: background .2s, color .2s;
+        }
+        .footer-social a:hover { background: #7ec850; color: #111; }
+        .footer-newsletter input {
+            background: #222; border: 1px solid #333; color: #fff;
+            border-radius: 8px 0 0 8px; padding: 8px 14px; font-size: .87rem; flex: 1; outline: none;
+        }
+        .footer-newsletter input::placeholder { color: #555; }
+        .footer-newsletter button {
+            background: #7ec850; color: #111; border: none;
+            border-radius: 0 8px 8px 0; padding: 8px 16px; font-weight: 800; font-size: .84rem;
+        }
+        
+        .footer-newsletter button:hover { background: #9de070; }
+        .footer-bottom { border-top: 1px solid #222; margin-top: 48px; padding: 16px 0; font-size: .82rem; color: #555; }
+        .footer-bottom a { color: #666; text-decoration: none; }
+        .footer-bottom a:hover { color: #7ec850; }
+    </style>
+</head>
+<body>
+<!-- Nav Section -->
+<nav class="navbar-nav navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid bg-black d-flex align-items-center p-3">
+        <a class="navbar-brand d-flex justify-content-start align-items-center" href="/bootstrap/dino_home_page.html">
+            <img class="rounded-3" src="https://i1-c.pinimg.com/1200x/a7/d7/75/a7d7751961ee448f01dcb9c1dff5c83d.jpg" alt="Logo" width="80" class="d-inline-block align-text-top">
+            <p class="text-white fw-bold p-4 fs-3 fw-bolder my-0 mx-0 me-5">DinoShop</p>
+        </a>
+        <button class="navbar-toggler text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-light"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav text-light fs-4 fw-bold gap-5">
+        <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Menu</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Products
+                </a>
+        <ul class="dropdown-menu bg-black">
+            <li><a class="dropdown-item text-light fs-4 p-1 w-100 text-dark text-center" href="#plushies">Plushies</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-light fs-4 p-1 w-100 text-dark text-center" href="#blind-box">Blind-Box</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-light fs-4 p-1 w-100 text-dark text-center" href="#figure">Figure</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-light fs-4 p-1 w-100 text-dark text-center" href="#accessories">Accessories</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-light fs-4 p-1 w-100 text-dark text-center" href="#customize">Customize</a></li>
+        </ul>
+        </li>
+    </ul>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success fs-5 fw-bold ms-4" type="submit">Search</button>
+    </form>
+</div>
+<div class="icon d-flex gap-4">
+        <a href="#" class="text-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+        </a>
+        <a href="#" class="text-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            </svg>  
+        </a>
+</div>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="hero-section" style="margin-top: 100px;">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class=" col-12 col-lg-5 mb-4 mb-lg-0">
+                <h1 class="fw-bold" style="color: #1a2e1a; font-size: 4rem;">Welcome to DinoShop</h1>
+                <p class="mt-3 text-dark" style="font-size: 1.5rem;">
+                Discover the cutest collection of plushies, blind boxes, figures, and
+                accessories. Make your collection roar with our exclusive
+                dinosaur-themed items and customizable treasures!
+                </p>
+                <div class="btn-a d-flex gap-3 mt-4 flex-wrap">
+                    <a href="#" class="btn btn-success px-4 py-2  fw-semibold" style="width: 150px; background-color: black; border: none; border-radius: 8px;">
+                        Shop Now
+                    </a>
+                    <a href="#" class="btn px-4 py-2 fw-semibold" style=" width: 150px; border: 2px solid black; color: black; border-radius: 8px; background: transparent;">
+                        Customize
+                    </a>
+                </div>
+            </div>  <!-- end of hero description -->
+
+            <div class=" hero-grid col-12 col-lg-7 ">
+                <div class="row g-3" style="margin-left: 200px;">
+                    <div class="col-6">
+                        <img class="hero-img" src="https://i.pinimg.com/736x/0f/2a/5f/0f2a5f3ebd632eb98eea052e8c35aed8.jpg"
+                        class="w-100 rounded-4"  alt="dino1">
+                    </div>
+                    <div class="col-6">
+                        <img class="hero-img" src="https://i.pinimg.com/1200x/c5/ec/1c/c5ec1c91ec5f7bde7bfd4140c65414a0.jpg"
+                        class="w-100 rounded-4"  alt="dino2">
+                    </div>
+                    <div class="col-6">
+                        <img class="hero-img" src="https://i.pinimg.com/1200x/ae/74/0b/ae740bbc8e45c48334749faec4332116.jpg"
+                        class="w-100 rounded-4"  alt="dino4">
+                    </div>
+                    <div class="col-6">
+                        <img class="hero-img" src="https://i.pinimg.com/736x/76/05/f1/7605f104353882be1608ec41325d5f14.jpg"
+                        class="w-100 rounded-4" alt="dino4">
+                    </div>
+                </div>
+            </div> <!--end of pic grid-->
+        </div>
+    </div>
+</section>
+
+
+<!-- Category -->
+<section class="py-5 section-white">
+    <div class="container">
+        <h2 class="fw-bold text-center mb-1" style="color: #1a2e1a; font-size: 2.4rem;">
+            Shop by Category
+        </h2>
+        <p class="text-center text-secondary fw-bold  mb-5">
+            Click a category to jump straight to the collection
+        </p>
+        <div class="row g-4">
+
+            <!-- Plushies -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <a href="#plushies" class="text-decoration-none">
+                    <div class="category-card card h-100">
+                        <div class="cat-img-wrap">
+                            <img class="cat-img" src="https://i.pinimg.com/736x/0f/2a/5f/0f2a5f3ebd632eb98eea052e8c35aed8.jpg" alt="Plushies">
+                        </div>
+                        <div class="card-body">
+                            <span class="cat-badge">Bestseller</span>
+                            <h5 class="fw-bold mb-1" style="color: #1a2e1a;">Plushies</h5>
+                            <p class="text-secondary small mb-2">Soft, Squishy dino companions for all ages.</p>
+                            <span class="fw-bold text-dark">
+                                Shop now →
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <!-- Blind-Box -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <a href="#blind-box" class="text-decoration-none">
+                <div class="category-card card h-100">
+                    <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://i.pinimg.com/736x/49/aa/33/49aa331cd8e601780e6093763883b107.jpg" alt="Blind-Box">
+                    </div>
+                    <div class="card-body">
+                    <span class="cat-badge">Mystery</span>
+                    <h5 class="fw-bold mb-1" style="color:#1a2e1a;">Blind-Box</h5>
+                    <p class="text-secondary small mb-2">Surprise yourself — every box hides a rare dino.</p>
+                    <span class="fw-bold text-dark">Shop now →</span>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+
+            <!-- Figure -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <a href="#figure" class="text-decoration-none">
+                <div class="category-card card h-100">
+                    <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://i.pinimg.com/736x/98/5b/2a/985b2a9c540c15cd1c62266b47736242.jpg" alt="Figure">
+                    </div>
+                    <div class="card-body">
+                    <span class="cat-badge">Collector's Pick</span>
+                    <h5 class="fw-bold mb-1" style="color:#1a2e1a;">Figure</h5>
+                    <p class="text-secondary small mb-2">High-detail figures made for serious collectors.</p>
+                    <span class="fw-bold text-dark">Shop now →</span>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+
+            <!-- Accessories -->
+            <div class="col-12 col-sm-6 col-lg-6">
+                <a href="#accessories" class="text-decoration-none">
+                <div class="category-card card h-100">
+                    <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://i.pinimg.com/736x/78/77/ff/7877ff78ff8e47dd23ddd6aa22f03c75.jpg" alt="Accessories">
+                    </div>
+                    <div class="card-body">
+                    <span class="cat-badge">New Arrivals</span>
+                    <h5 class="fw-bold mb-1" style="color:#1a2e1a;">Accessories</h5>
+                    <p class="text-secondary small mb-2">Bags, keychains, pins — carry dino energy everywhere.</p>
+                    <span class="fw-bold text-dark">Shop now →</span>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+
+            <!-- Manga -->
+            <div class="col-12 col-sm-12 col-lg-6">
+                <a href="#customize" class="text-decoration-none">
+                <div class="category-card card h-100">
+                    <div class="cat-img-wrap">
+                    <img class="cat-img" src="https://i.pinimg.com/736x/c2/e6/02/c2e602748246c76f6844b2fa5729d5e9.jpg" alt="Customize">
+                    </div>
+                    <div class="card-body">
+                    <span class="cat-badge">Best-Cheap Manga</span>
+                    <h5 class="fw-bold mb-1" style="color:#1a2e1a;">Manga</h5>
+                    <p class="text-secondary small mb-2">Paperbacks, box sets, special editions — carry your favorite worlds everywhere.</p>
+                    <span class="fw-bold text-dark">Shop now →</span>
+                    </div>
+                </div>
+                </a>
+            </div>
+         </div>
+    </div>
+</section>
+
+<!-- Feature -->
+<section class="py-5 section-light">
+        <div class="container">
+            <h2 class="fw-bold text-center mb-1" style="color: #1a2e1a; font-size: 2.4rem;">Why Choose DinoShop?</h2>
+            <p class="text-center text-secondary mb-5 fw-bold">
+                Best-Fast-Guarantee
+            </p>
+            <div class="row g-4">
+                <!-- feature Grid -->
+                <div class="col-12 col-md-4 col-lg-4">
+                    <a href="#" class="text-decoration-none">
+                        <div class="feature-card card h-100">
+                            <div class="feature-img-wrap">
+                                <img class="feature-img" src="https://i.pinimg.com/1200x/4c/aa/4d/4caa4d90b86f589fad8d14aab4655eb8.jpg" alt="Feature_1">
+                            </div>
+                            <div class="feature-card-body card-body">
+                                <span class="feature-badge">PREMUIM SELECTION</span>
+                                <span class="feature-badge">BEST QUALITY</span>
+                                <h5 class="fw-bold mb-1" style="color:#1a2e1a;">Crafts for True Collectors & Cozy Vibes. 
+                                </h5>
+                                <p class="text-secondary small mb-2">From could-filled plushies to crips high-detail figures, we pick the best.</p>
+                                <span class="fw-bold text-dark">See our quality →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-4">
+                    <a href="#" class="text-decoration-none">
+                        <div class="feature-card card h-100">
+                            <div class="feature-img-wrap">
+                                <img class="feature-img" src="https://i.pinimg.com/736x/24/ec/c6/24ecc695fc4c78388b58895de61c6f1b.jpg" alt="Feature_2">
+                            </div>
+                            <div class="feature-card-body card-body">
+                                <span class="feature-badge">100% AUHTENTIC</span>
+                                <span class="feature-badge">AESTHETIC</span>
+                                <h5 class="fw-bold mb-1" style="color:#1a2e1a;">No bootlegs. No Resealed Boxes. Ever. 
+                                </h5>
+                                <p class="text-secondary small mb-2">we source directly from official brand lines. your blind box pulls are untampered.</p>
+                                <span class="fw-bold text-dark">Shop official merch →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-4">
+                    <a href="#" class="text-decoration-none">
+                        <div class="feature-card card h-100">
+                            <div class="feature-img-wrap">
+                                <img class="feature-img" src="https://i.pinimg.com/1200x/4c/aa/4d/4caa4d90b86f589fad8d14aab4655eb8.jpg" alt="Feature_1">
+                            </div>
+                            <div class="feature-card-body card-body">
+                                <span class="feature-badge">FAN FAVOURITE</span>
+                                <span class="feature-badge">MANGA-READERS</span>
+                                <h5 class="fw-bold mb-1" style="color:#1a2e1a;">Packed by Fans, For Anime Fans 
+                                </h5>
+                                <p class="text-secondary small mb-2">Every order arrives in gift-ready custom packaging, complete with unique extras.</p>
+                                <span class="fw-bold text-dark">Learn about gifting →</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Brand + socials -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <img class="rounded-3" src="https://i1-c.pinimg.com/1200x/a7/d7/75/a7d7751961ee448f01dcb9c1dff5c83d.jpg" alt="Logo" width="46" height="46" style="object-fit:cover;">
+          <span class="footer-brand">DinoShop</span>
+        </div>
+        <p class="footer-tagline">Your one-stop destination for all things dinosaur, blind-boxes, Anime Manga-Figure and Accessories.</p>
+        <div class="footer-social mt-4">
+          <!-- Instagram -->
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a href="#" aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <h6 class="footer-heading">Quick Links</h6>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Promotions</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Products -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <h6 class="footer-heading">Products</h6>
+        <ul>
+          <li><a href="#plushies">Plushies</a></li>
+          <li><a href="#blind-box">Blind-Box</a></li>
+          <li><a href="#figure">Figure</a></li>
+          <li><a href="#accessories">Accessories</a></li>
+          <li><a href="#customize">Customize</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="col-12 col-lg-4">
+        <h6 class="footer-heading">Stay in the Loop</h6>
+        <p style="color:#777;font-size:.87rem;margin-bottom:12px;">Get dino drops, exclusive deals, and rare restocks straight to your inbox.</p>
+        <div class="footer-newsletter d-flex">
+          <input type="email" placeholder="your@email.com">
+          <button type="button">Subscribe</button>
+        </div>
+        <p style="color:#555;font-size:.77rem;margin-top:8px;">No spam! Unsubscribe anytime!</p>
+        <div class="mt-3 d-flex gap-2 flex-wrap">
+          <span style="background:#222;color:#777;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid #333;">VISA</span>
+          <span style="background:#222;color:#777;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid #333;">MASTERCARD</span>
+          <span style="background:#222;color:#777;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid #333;">PAYPAL</span>
+          <span style="background:#222;color:#777;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid #333;">ABA</span>
+          <span style="background:#222;color:#777;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:6px;border:1px solid #333;">ACLEDA</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p class="mb-0">© 2025 DinoShop. All rights reserved. Made with love.</p>
+      <div class="d-flex gap-3 flex-wrap">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Shipping Info</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"
+        ></script>
+</body>
+</html>
